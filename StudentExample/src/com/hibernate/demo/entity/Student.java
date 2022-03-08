@@ -1,8 +1,11 @@
-package com.hibernate.demo.entity;
+package demo.entity;
+
 
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,6 +23,7 @@ public class Student implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     int id;
     
@@ -78,3 +82,4 @@ public class Student implements Serializable{
         return "Student{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
     }
 }
+
