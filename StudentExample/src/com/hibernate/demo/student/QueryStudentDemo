@@ -1,0 +1,63 @@
+package com.demo.student;
+
+import demo.entity.Student;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+/**
+ *
+ * @author Dell
+ */
+public class QueryStudentDemo {
+    
+    @SuppressWarnings("unchecked")
+	public static void main(String arg[]){
+        
+        //create session factory
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        
+        Session session = factory.getCurrentSession();
+         
+        try{
+            
+                        
+            //start a transaction
+            session.beginTransaction();
+            
+            //query the student object
+            List<Student> theStudent = session.createQuery("from Student where id<=3").getResultList();
+            
+            //display student
+            displayStudent(theStudent);
+            System.out.println("\n-------------------------");
+            
+            //query the student object
+            theStudent = session.createQuery("from Student where lastName='Azeem'").getResultList();
+            
+            //display student
+            displayStudent(theStudent);
+                        
+            //commit transaction
+            session.getTransaction().commit();
+            
+            //Done
+            System.err.println("Done....!");
+        }finally{
+          factory.close();
+        }
+    
+    }
+
+	private static void displayStudent(List<Student> theStudent) {
+		//display student
+		for(Student tempStudent: theStudent) {
+			System.out.println("List: "+tempStudent);
+		}
+	}
+        
+}
+
